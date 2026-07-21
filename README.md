@@ -10,6 +10,8 @@ Esse foi um dos meus primeiros projetos próprios, feito para aplicar na prátic
   - Marcar uma tarefa como concluída
   - Remover uma tarefa
   - Tratamento de erros para entradas inválidas, como texto no lugar de número ou lista vazia
+  - Salvamento automático em arquivo (JSON) a cada alteração, para que as tarefas não se percam ao fechar o programa
+  - Ao iniciar, se já existir uma lista salva, o programa pergunta se você quer continuar com ela ou começar do zero
 
 ## Tecnologias usadas
 
@@ -37,9 +39,13 @@ Adicione uma tarefa (ou 'sair' para voltar): sair
 
 ## Próximos passos
 
-  - Salvar as tarefas em arquivo, para que não se percam ao fechar o programa
+  - Permitir marcar ou remover várias tarefas de uma vez, seguindo a mesma lógica já usada para adicionar
+  - Permitir editar o texto de uma tarefa já criada
+  - Guardar a data de criação de cada tarefa
+  - Adicionar categorias às tarefas (ex.: Faculdade, Pessoal, Trabalho), com opção de listar por categoria
+  - Futuramente, criar uma interface gráfica (com tkinter), substituindo o terminal
   - Reescrever o projeto em Java, como exercício de fixação de lógica em outra linguagem
-
+    
 ## Autor
 
 Feito por Isabella Tiemi S. N. como projeto de portfólio, aplicando conceitos aprendidos no curso de Análise e Desenvolvimento de Sistemas (ADS).
