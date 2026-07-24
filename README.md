@@ -7,8 +7,8 @@ Esse foi um dos meus primeiros projetos próprios, feito para aplicar na prátic
 
   - Adicionar uma ou várias tarefas seguidas, sem precisar voltar ao menu a cada uma
   - Listar todas as tarefas cadastradas, numeradas
-  - Marcar uma tarefa como concluída
-  - Remover uma tarefa
+  - Marcar uma ou várias tarefas como concluídas, seguidas
+  - Remover uma ou várias tarefas, seguidas
   - Tratamento de erros para entradas inválidas, como texto no lugar de número ou lista vazia
   - Salvamento automático em arquivo (JSON) a cada alteração, para que as tarefas não se percam ao fechar o programa
   - Ao iniciar, se já existir uma lista salva, o programa pergunta se você quer continuar com ela ou começar do zero
@@ -39,7 +39,6 @@ Adicione uma tarefa (ou 'sair' para voltar): sair
 
 ## Próximos passos
 
-  - Permitir marcar ou remover várias tarefas de uma vez, seguindo a mesma lógica já usada para adicionar
   - Permitir editar o texto de uma tarefa já criada
   - Guardar a data de criação de cada tarefa
   - Adicionar categorias às tarefas (ex.: Faculdade, Pessoal, Trabalho), com opção de listar por categoria
