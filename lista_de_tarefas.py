@@ -28,7 +28,7 @@ def salvar(tarefas):
 def criar(tarefas):
     while (True):
         nova_tarefa = str(input("Adicione uma tarefa (ou 'sair' para voltar):"))
-        if ((nova_tarefa == "sair")):
+        if (nova_tarefa == "sair"):
             break
         else:
             tarefas.append(nova_tarefa)
@@ -47,12 +47,19 @@ def concluida(tarefas):
     else: 
         for indice, tarefa in enumerate(tarefas, start=1):
             print(str(indice) + " - " + tarefa)
-        try:
-            c = int(input ( "\nDigite o número da tarefa que está concluída:"))
-            c = c - 1
-            tarefas[c] = tarefas[c] + " - Concluída"
-        except:
-            print("Número inválido. Digite um número da lista.")
+
+        while (True):
+            try:
+                c = int(input ( "\nDigite o número da tarefa que está concluída (ou '0' para voltar):"))
+                if (c==0):
+                    break
+                else:
+                    if not tarefas[c].endswith(" - Concluída"):
+                        tarefas[c] = tarefas[c] + " - Concluída"
+                    else:
+                        print("Essa tarefa já está concluída")
+            except:
+                print("Número inválido. Digite um número da lista.")
         for indice, tarefa in enumerate(tarefas, start=1):
             print(str(indice) + " - " + tarefa)
 
@@ -62,12 +69,16 @@ def remover (tarefas):
     else: 
         for indice, tarefa in enumerate(tarefas, start=1):
             print(str(indice) + " - " + tarefa)
-        try:
-            c = int(input("\nDigite o número da tarefa que será deletada:"))
-            c = c - 1
-            print("Tarefa deletada: " + tarefas.pop(c))
-        except:
-            print("Número inválido. Digite um número da lista.") 
+        while (True):
+            try:
+                c = int(input("\nDigite o número da tarefa que será deletada(ou '0' para sair):"))
+                if (c==0):
+                    break
+                else:
+                    c = c - 1
+                    print("Tarefa deletada: " + tarefas.pop(c))
+            except:
+                print("Número inválido. Digite um número da lista.") 
 
 #Inicio
 tarefas = carregar (tarefas)
