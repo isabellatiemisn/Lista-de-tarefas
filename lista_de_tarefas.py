@@ -27,7 +27,7 @@ def salvar(tarefas):
 
 def criar(tarefas):
     while (True):
-        nova_tarefa = str(input("Adicione uma tarefa (ou 'sair' para voltar):"))
+        nova_tarefa = str(input("Adicione uma tarefa (ou 'sair' para voltar): "))
         if (nova_tarefa == "sair"):
             break
         else:
