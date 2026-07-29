@@ -12,6 +12,7 @@ Esse foi um dos meus primeiros projetos próprios, feito para aplicar na prátic
   - Tratamento de erros para entradas inválidas, como texto no lugar de número ou lista vazia
   - Salvamento automático em arquivo (JSON) a cada alteração, para que as tarefas não se percam ao fechar o programa
   - Ao iniciar, se já existir uma lista salva, o programa pergunta se você quer continuar com ela ou começar do zero
+  - Editar o texto de uma tarefa já criada, mantendo o status de concluída se ela já estava marcada
 
 ## Tecnologias usadas
 
@@ -31,7 +32,8 @@ Esse foi um dos meus primeiros projetos próprios, feito para aplicar na prátic
 2 Listar todas as tarefas
 3 Marcar uma tarefa como concluída
 4 Remover uma tarefa
-5 Sair do programa
+5 Editar tarefa
+6 Sair do programa
 Escolha uma das ações acima: 1
 Adicione uma tarefa (ou 'sair' para voltar): Estudar Python
 Adicione uma tarefa (ou 'sair' para voltar): sair
@@ -39,7 +41,6 @@ Adicione uma tarefa (ou 'sair' para voltar): sair
 
 ## Próximos passos
 
-  - Permitir editar o texto de uma tarefa já criada
   - Guardar a data de criação de cada tarefa
   - Adicionar categorias às tarefas (ex.: Faculdade, Pessoal, Trabalho), com opção de listar por categoria
   - Futuramente, criar uma interface gráfica (com tkinter), substituindo o terminal
