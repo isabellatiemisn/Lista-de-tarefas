@@ -1,6 +1,6 @@
 # Lista de Tarefas
 
-Programa de terminal feito em Python para organizar tarefas do dia a dia. Dá pra adicionar, listar, marcar como concluída e remover tarefas, tudo pelo terminal mesmo, sem interface gráfica.
+Programa de terminal feito em Python para organizar tarefas do dia a dia. Permite adicionar, listar, editar, concluir e remover tarefas, além de organizá-las por categoria e acompanhar a data de criação de cada uma — tudo pelo terminal mesmo, sem interface gráfica.
 Esse foi um dos meus primeiros projetos próprios, feito para aplicar na prática o que venho aprendendo no curso de Análise e Desenvolvimento de Sistemas.
 
 ## Funcionalidades
@@ -13,6 +13,8 @@ Esse foi um dos meus primeiros projetos próprios, feito para aplicar na prátic
   - Salvamento automático em arquivo (JSON) a cada alteração, para que as tarefas não se percam ao fechar o programa
   - Ao iniciar, se já existir uma lista salva, o programa pergunta se você quer continuar com ela ou começar do zero
   - Editar o texto de uma tarefa já criada, mantendo o status de concluída se ela já estava marcada
+  - Cada tarefa registra automaticamente a data de criação
+  - Categorização das tarefas: escolha uma categoria já existente, crie uma nova, ou deixe sem categoria
 
 ## Tecnologias usadas
 
@@ -20,9 +22,8 @@ Esse foi um dos meus primeiros projetos próprios, feito para aplicar na prátic
 
 ## Detalhes técnicos
 
-Cada tarefa é armazenada como um dicionário (contendo o texto e o
-status de conclusão), ao invés de texto puro — uma estrutura mais
-organizada, que facilita expansões futuras, como categorias e datas.
+Cada tarefa é armazenada como um dicionário, contendo texto, status de conclusão, categoria e data de criação. 
+O arquivo de persistência guarda tarefas e categorias juntos, numa estrutura combinada, o que facilita expansões futuras (como um banco de dados relacional).
   
 ## Como rodar
 
@@ -47,10 +48,11 @@ Adicione uma tarefa (ou 'sair' para voltar): sair
 
 ## Próximos passos
 
-  - Guardar a data de criação de cada tarefa
-  - Adicionar categorias às tarefas (ex.: Faculdade, Pessoal, Trabalho), com opção de listar por categoria
+  - Permitir alterar a categoria de uma tarefa já existente, dentro da opção de editar
+  - Adicionar opção de configurações, para escolher o que aparece na listagem (data, categoria)
+  - Adicionar opção de busca/filtro de tarefas (por texto, categoria ou status)
   - Migrar o armazenamento de arquivo JSON para um banco de dados SQLite
-  - Futuramente, criar uma interface gráfica (com tkinter), substituindo o terminal
+  - Futuramente, criar uma interface gráfica, substituindo o terminal
   - Reescrever o projeto em Java, como exercício de fixação de lógica em outra linguagem
     
 ## Autor
