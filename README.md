@@ -18,6 +18,12 @@ Esse foi um dos meus primeiros projetos próprios, feito para aplicar na prátic
 
   - Python 3
 
+## Detalhes técnicos
+
+Cada tarefa é armazenada como um dicionário (contendo o texto e o
+status de conclusão), ao invés de texto puro — uma estrutura mais
+organizada, que facilita expansões futuras, como categorias e datas.
+  
 ## Como rodar
 
   1. Certifique-se de ter o Python 3 instalado na sua máquina
@@ -43,6 +49,7 @@ Adicione uma tarefa (ou 'sair' para voltar): sair
 
   - Guardar a data de criação de cada tarefa
   - Adicionar categorias às tarefas (ex.: Faculdade, Pessoal, Trabalho), com opção de listar por categoria
+  - Migrar o armazenamento de arquivo JSON para um banco de dados SQLite
   - Futuramente, criar uma interface gráfica (com tkinter), substituindo o terminal
   - Reescrever o projeto em Java, como exercício de fixação de lógica em outra linguagem
     
