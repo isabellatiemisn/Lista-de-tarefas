@@ -1,37 +1,73 @@
 import json
-#Declarar
+import datetime
 tarefas:str = []
+categorias:str = []
 acao: int = 0
 c: int = 0
 nova_tarefa: str = ""
-#Módulos
-def carregar (tarefas):   
+def carregar (tarefas,categorias):   
     try:
         with open("ListaTarefas.json", "r") as arquivo:
-            tarefas = json.load(arquivo)
+            dados = json.load(arquivo)
+            tarefas = dados.get("tarefas", [])
+            categorias = dados.get("categorias", [])
         print ("Lista já existente")
-        arquivo = int(input("Deseja: 1 Manter lista ou 2 Criar nova lista? "))   
-        if (arquivo==1):
-            return tarefas
-        elif(arquivo==2):
-            tarefas = []
-            return tarefas
+        while (True): 
+            try:
+                arquivo = int(input("Deseja: 1 Manter lista ou 2 Criar nova lista? "))
+                if (arquivo==1):
+                    return tarefas, categorias
+                elif(arquivo==2):
+                    tarefas = []
+                    categorias = []
+                    return tarefas,categorias
+                else:
+                    print("Escolha uma opção válida")
+            except: 
+                print ("ERRO Digite o número de uma das opções")
     except:            
         with open ("ListaTarefas.json","w") as arquivo:
-            json.dump(tarefas, arquivo)
-            return tarefas
+            dados = {"tarefas":tarefas,"categorias":categorias}
+            json.dump(dados, arquivo)
+            return tarefas, categorias
 
-def salvar(tarefas):
+def salvar(tarefas,categorias):
     with open ("ListaTarefas.json","w") as arquivo:
-        json.dump(tarefas, arquivo)
+        dados = {"tarefas":tarefas,"categorias":categorias}
+        json.dump(dados, arquivo)
 
-def criar(tarefas):
+def criar(tarefas,categorias):
     while (True):
         nova_tarefa = str(input("Adicione uma tarefa (ou 'sair' para voltar):"))
         if (nova_tarefa == "sair"):
             break
         else:
-            tarefas.append({"tarefa":nova_tarefa,"concluida":False})
+            while(True):
+                if not (len(categorias)==0):
+                    texto = "Escolha uma categoria existente pelo número,\ncrie uma nova ou deixe em branco para não categorizar: "
+                    for indice, categoria in enumerate(categorias, start=1):
+                        print(str(indice) + " - " + categoria)
+                else:
+                    texto = "Nomeie uma categoria para a tarefa ou deixe em branco pra não categorizar: "
+                entrada_categoria = input(texto)
+                if((entrada_categoria=="0")or(entrada_categoria.strip() == "")):
+                    categoria_escolhida = "Sem categoria"
+                    break
+                else:
+                    try: 
+                        numero = int(entrada_categoria)
+                        numero = numero - 1
+                        if (0 <= numero < len(categorias)):
+                            categoria_escolhida = categorias[numero]
+                            break
+                        else:
+                            print("ERRO Essa categoria não existe\nPor favor insira uma categoria válida")
+                    except ValueError:
+                        categoria_escolhida = entrada_categoria
+                        categorias.append(categoria_escolhida)
+                        break
+        hoje = str(datetime.date.today())
+        tarefas.append({"tarefa":nova_tarefa,"concluida":False,"categoria":categoria_escolhida,"data":hoje})
         
 def listar(tarefas):
     print ("\n")
@@ -39,8 +75,11 @@ def listar(tarefas):
         print ("Sem Tarefas")
     else: 
         for indice, tarefa in enumerate(tarefas, start=1):
-            extra = " - Concluída" if tarefa["concluida"] else " "
-            print(str(indice) + " - " + tarefa["tarefa"] + extra )
+            if tarefa["concluida"]: 
+                extra = " - Concluída"  
+            else: 
+                extra = " "
+            print(str(indice) + " - " + tarefa["tarefa"] + " - " + "(" + tarefa["categoria"] + ")" + " - " + tarefa["data"] + extra )
 
 def concluida(tarefas):
     if (len(tarefas)==0):
@@ -101,32 +140,5 @@ def editar (tarefas):
             except:
                 print("Número inválido. Digite um número da lista.") 
 
-#Inicio
-tarefas = carregar (tarefas)
+tarefas, categorias = carregar (tarefas,categorias)
 while (acao!=6):
-    print ("\n1 Adicionar tarefa \n2 Listar tarefas \n3 Marcar tarefa como concluída \n4 Remover tarefa \n5 Editar tarefa\n6 Sair do programa")
-    try:
-        acao = int(input("Escolha uma das ações acima:")) 
-    except:
-        print("Número inválido. Digite um número da lista.")
-    if (acao==1):
-        criar(tarefas)
-        salvar (tarefas)
-    elif (acao==2):
-        listar(tarefas)
-    elif (acao==3):
-        concluida(tarefas)
-        salvar (tarefas)
-    elif (acao==4):
-        remover(tarefas)
-        salvar (tarefas)
-    elif (acao==5):
-        editar(tarefas)
-        salvar (tarefas)
-    elif (acao==6):
-        print ("Saindo do Programa")
-    else:
-        print ("ERRO")
-        print ("A ação digitada não existe, por favor digite um número válido")
-#Fim
-
