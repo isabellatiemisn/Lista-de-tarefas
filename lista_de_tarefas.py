@@ -10,11 +10,11 @@ def carregar (tarefas):
         with open("ListaTarefas.json", "r") as arquivo:
             tarefas = json.load(arquivo)
         print ("Lista já existente")
-        arquivo = int(input("Deseja: 1 Deletar e criar nova ou 2 Manter lista?"))   
+        arquivo = int(input("Deseja: 1 Manter lista ou 2 Criar nova lista? "))   
         if (arquivo==1):
-            tarefas = []
             return tarefas
         elif(arquivo==2):
+            tarefas = []
             return tarefas
     except:            
         with open ("ListaTarefas.json","w") as arquivo:
@@ -27,11 +27,11 @@ def salvar(tarefas):
 
 def criar(tarefas):
     while (True):
-        nova_tarefa = str(input("Adicione uma tarefa (ou 'sair' para voltar): "))
+        nova_tarefa = str(input("Adicione uma tarefa (ou 'sair' para voltar):"))
         if (nova_tarefa == "sair"):
             break
         else:
-            tarefas.append(nova_tarefa)
+            tarefas.append({"tarefa":nova_tarefa,"concluida":False})
         
 def listar(tarefas):
     print ("\n")
@@ -39,14 +39,15 @@ def listar(tarefas):
         print ("Sem Tarefas")
     else: 
         for indice, tarefa in enumerate(tarefas, start=1):
-            print(str(indice) + " - " + tarefa)
+            extra = " - Concluída" if tarefa["concluida"] else " "
+            print(str(indice) + " - " + tarefa["tarefa"] + extra )
 
 def concluida(tarefas):
     if (len(tarefas)==0):
             print ("Sem Tarefas")
     else: 
         for indice, tarefa in enumerate(tarefas, start=1):
-            print(str(indice) + " - " + tarefa)
+            print(str(indice) + " - " + tarefa["tarefa"])
 
         while (True):
             try:
@@ -55,21 +56,21 @@ def concluida(tarefas):
                     break
                 else:
                     c = c - 1
-                    if not tarefas[c].endswith(" - Concluída"):
-                        tarefas[c] = tarefas[c] + " - Concluída"
+                    if not (tarefas[c]["concluida"]):
+                        tarefas[c]["concluida"] = True
                     else:
                         print("Essa tarefa já está concluída")
             except:
                 print("Número inválido. Digite um número da lista.")
         for indice, tarefa in enumerate(tarefas, start=1):
-            print(str(indice) + " - " + tarefa)
+            print(str(indice) + " - " + tarefa["tarefa"])
 
 def remover (tarefas):
     if (len(tarefas)==0):
             print ("Sem Tarefas")
     else: 
         for indice, tarefa in enumerate(tarefas, start=1):
-            print(str(indice) + " - " + tarefa)
+            print(str(indice) + " - " + tarefa["tarefa"])
         while (True):
             try:
                 c = int(input("\nDigite o número da tarefa que será deletada(ou '0' para sair):"))
@@ -77,7 +78,8 @@ def remover (tarefas):
                     break
                 else:
                     c = c - 1
-                    print("Tarefa deletada: " + tarefas.pop(c))
+                    removida = tarefas.pop(c)
+                    print("Tarefa deletada: " + removida["tarefa"])    
             except:
                 print("Número inválido. Digite um número da lista.") 
 
@@ -86,7 +88,7 @@ def editar (tarefas):
             print ("Sem Tarefas")
     else: 
         for indice, tarefa in enumerate(tarefas, start=1):
-            print(str(indice) + " - " + tarefa)
+            print(str(indice) + " - " + tarefa["tarefa"])
         while (True):
             try:
                 c = int(input("\nDigite o número da tarefa que será editada(ou '0' para sair):"))
@@ -94,24 +96,15 @@ def editar (tarefas):
                     break
                 else:
                     c = c - 1
-                    tarefa_concluida = tarefas[c].endswith(" - Concluída")
-                    if (tarefa_concluida):
-                        tarefas[c] = tarefas[c].removesuffix(" - Concluída")
-                    else: 
-                        tarefas[c] = tarefas[c]
-                    print("Tarefa atual:",tarefas[c])
-                    tarefas[c] = input("Digite o novo texto: ")
-                    if (tarefa_concluida):
-                        tarefas[c] = tarefas[c] + " - Concluída"
-                    else:
-                        tarefas[c] = tarefas[c]
+                    print("Tarefa atual:",tarefas[c]["tarefa"])
+                    tarefas[c]["tarefa"] = input("Digite o novo texto: ")
             except:
                 print("Número inválido. Digite um número da lista.") 
 
 #Inicio
 tarefas = carregar (tarefas)
 while (acao!=6):
-    print ("\n1 Adicionar uma tarefa \n2 Listar todas as tarefas \n3 Marcar uma tarefa como concluída \n4 Remover uma tarefa \n5 Editar tarefa\n6 Sair do programa")
+    print ("\n1 Adicionar tarefa \n2 Listar tarefas \n3 Marcar tarefa como concluída \n4 Remover tarefa \n5 Editar tarefa\n6 Sair do programa")
     try:
         acao = int(input("Escolha uma das ações acima:")) 
     except:
