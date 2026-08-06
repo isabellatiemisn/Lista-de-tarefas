@@ -48,7 +48,7 @@ Adicione uma tarefa (ou 'sair' para voltar): sair
 
 ## Próximos passos
 
-  - Permitir alterar a categoria de uma tarefa já existente, dentro da opção de editar
+  - Permitir editar categorias
   - Adicionar opção de configurações, para escolher o que aparece na listagem (data, categoria)
   - Adicionar opção de busca/filtro de tarefas (por texto, categoria ou status)
   - Migrar o armazenamento de arquivo JSON para um banco de dados SQLite
