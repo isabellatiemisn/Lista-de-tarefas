@@ -36,38 +36,41 @@ def salvar(tarefas,categorias):
         dados = {"tarefas":tarefas,"categorias":categorias}
         json.dump(dados, arquivo)
 
+def categorizar(categorias):
+    while(True):
+        if not (len(categorias)==0):
+            texto = "Escolha uma categoria existente pelo número,\ncrie uma nova ou deixe em branco para não categorizar: "
+            for indice, categoria in enumerate(categorias, start=1):
+                print(str(indice) + " - " + categoria)
+        else:
+            texto = "Nomeie uma categoria para a tarefa ou deixe em branco pra não categorizar: "
+        entrada_categoria = input(texto)
+        if((entrada_categoria=="0")or(entrada_categoria.strip() == "")):
+            categoria_escolhida = "Sem categoria"
+            return "Sem categoria"
+        else:
+            try: 
+                numero = int(entrada_categoria)
+                numero = numero - 1
+                if (0 <= numero < len(categorias)):
+                    categoria_escolhida = categorias[numero]
+                    return categorias[numero]
+                else:
+                    print("ERRO Essa categoria não existe\nPor favor insira uma categoria válida")
+            except ValueError:
+                categoria_escolhida = entrada_categoria
+                categorias.append(categoria_escolhida)
+                return categoria_escolhida
+
 def criar(tarefas,categorias):
     while (True):
         nova_tarefa = str(input("Adicione uma tarefa (ou 'sair' para voltar):"))
         if (nova_tarefa == "sair"):
             break
         else:
-            while(True):
-                if not (len(categorias)==0):
-                    texto = "Escolha uma categoria existente pelo número,\ncrie uma nova ou deixe em branco para não categorizar: "
-                    for indice, categoria in enumerate(categorias, start=1):
-                        print(str(indice) + " - " + categoria)
-                else:
-                    texto = "Nomeie uma categoria para a tarefa ou deixe em branco pra não categorizar: "
-                entrada_categoria = input(texto)
-                if((entrada_categoria=="0")or(entrada_categoria.strip() == "")):
-                    categoria_escolhida = "Sem categoria"
-                    break
-                else:
-                    try: 
-                        numero = int(entrada_categoria)
-                        numero = numero - 1
-                        if (0 <= numero < len(categorias)):
-                            categoria_escolhida = categorias[numero]
-                            break
-                        else:
-                            print("ERRO Essa categoria não existe\nPor favor insira uma categoria válida")
-                    except ValueError:
-                        categoria_escolhida = entrada_categoria
-                        categorias.append(categoria_escolhida)
-                        break
+            escolhida = categorizar(categorias)
         hoje = str(datetime.date.today())
-        tarefas.append({"tarefa":nova_tarefa,"concluida":False,"categoria":categoria_escolhida,"data":hoje})
+        tarefas.append({"tarefa":nova_tarefa,"concluida":False,"categoria":escolhida,"data":hoje})
         
 def listar(tarefas):
     print ("\n")
@@ -79,6 +82,7 @@ def listar(tarefas):
                 extra = " - Concluída"  
             else: 
                 extra = " "
+            
             print(str(indice) + " - " + tarefa["tarefa"] + " - " + "(" + tarefa["categoria"] + ")" + " - " + tarefa["data"] + extra )
 
 def concluida(tarefas):
@@ -122,23 +126,48 @@ def remover (tarefas):
             except:
                 print("Número inválido. Digite um número da lista.") 
 
-def editar (tarefas):
+def editar (tarefas,categorias):
     if (len(tarefas)==0):
             print ("Sem Tarefas")
-    else: 
-        for indice, tarefa in enumerate(tarefas, start=1):
-            print(str(indice) + " - " + tarefa["tarefa"])
+    else:             
         while (True):
+            print ("\n")
+            for indice, tarefa in enumerate(tarefas, start=1):
+                print(str(indice) + " - " + tarefa["tarefa"])
             try:
                 c = int(input("\nDigite o número da tarefa que será editada(ou '0' para sair):"))
                 if (c==0):
                     break
                 else:
                     c = c - 1
-                    print("Tarefa atual:",tarefas[c]["tarefa"])
-                    tarefas[c]["tarefa"] = input("Digite o novo texto: ")
-            except:
-                print("Número inválido. Digite um número da lista.") 
+                    print ("1 - Editar texto\n2 - Editar categoria\n3 - Editar os dois")
+                    opcaoedicao = 0
+                    while (True):
+                        try:
+                            opcaoedicao = int(input("Escolha uma opção pra editar: "))
+                        except:
+                            print ("Opção Inválida. Digite uma opção válida: ")
+                        if (opcaoedicao==1):
+                            print("Tarefa atual:",tarefas[c]["tarefa"])
+                            tarefas[c]["tarefa"] = input("Digite o novo texto: ")
+                            break
+                        elif (opcaoedicao==2):
+                            print("Categoria atual:",tarefas[c]["categoria"])
+                            nova_categoria = categorizar(categorias)
+                            tarefas[c]["categoria"] = nova_categoria
+                            break
+                        elif(opcaoedicao==3):
+                            print("Tarefa atual:",tarefas[c]["tarefa"])
+                            tarefas[c]["tarefa"] = input("Digite o novo texto: ")
+                            print("Categoria atual:",tarefas[c]["categoria"])
+                            nova_categoria = categorizar(categorias)
+                            tarefas[c]["categoria"] = nova_categoria
+                            break
+                        else:
+                            print ("ERRO. Opção Inválida")
+                    
+            except ValueError:
+                print("Opção Inválida. Digite um número da lista.") 
 
 tarefas, categorias = carregar (tarefas,categorias)
 while (acao!=6):
